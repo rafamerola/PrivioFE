@@ -1,0 +1,46 @@
+<h1 class="h1">Papeis</h1>
+<div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between stretch" class="papels">
+  <table mat-table fxFlex="100%" fxFlex.gt-sm="50%" [dataSource]="dataSource" class="mat-elevation-z1">
+    <ng-container matColumnDef="sigla">
+      <th mat-header-cell *matHeaderCellDef> Sigla</th>
+      <td mat-cell *matCellDef="let papel"> {{papel.sigla}}</td>
+    </ng-container>
+    <ng-container matColumnDef="descricao">
+      <th mat-header-cell *matHeaderCellDef> Descricao</th>
+      <td mat-cell *matCellDef="let papel"> {{papel.descricao}}</td>
+    </ng-container>
+    <ng-container matColumnDef="editar">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let papel">
+        <button mat-icon-button (click)="editPapel(papel)">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="deletar">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let papel">
+        <button mat-icon-button (click)="deletePapel(papel)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-divider fxShow="false" fxShow.gt-sm [vertical]="true"></mat-divider>
+  <div>
+    <h2>Selecionar Papel</h2>
+    <label>Sigla
+      <input type="text" [(ngModel)]="selectedPapel.sigla">
+    </label>
+    <label>Descrição
+      <input type="text" [(ngModel)]="selectedPapel.descricao">
+    </label>
+    <button mat-flat-button color="primary" (click)="updatePapel()">{{(selectedPapel.id!==undefined)?'Update':'Create'}}</button>
+    <button mat-flat-button color="primary" (click)="clearPapel()">Clear</button>
+  </div>
+  <div class="loading" *ngIf="loading">
+    <mat-spinner></mat-spinner>
+  </div>
+</div>
